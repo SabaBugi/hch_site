@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>მთის კულტურული მემკვიდრეობის კვლევის ცენტრი</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <main>
+    <!-- Hero / About -->
+     <!-- {% if settings %}
+      <h1>{{ settings.hero_title|default:"კეთილი იყოს თქვენი მობრძანება" }}</h1>
+      <p>{{ settings.about_text|linebreaks }}</p>
+    {% endif %} -->
+
+    <section id="about" class="section hero reveal">
+      <div class="container">
+        <h1 class="reveal">{{ settings.hero_title|default:"კეთილი იყოს თქვენი მობრძანება" }}</h1>
+        <p class="reveal">{{ settings.about_text|linebreaks }}</p>
+      </div>
+    </section>
+
+
+    <!-- Goals -->
+    <section id="goals" class="section">
+      <div class="container">
+        <h2 class="reveal" style="margin-bottom: 32px; text-align: center; color: #ffffff;">მიზნები</h2>
+        <div class="grid">
+          {% for goal in goals %}
+          <div class="card goal-card">
+            {% if goal.image %}
+              <div class="goal-icon">
+                <img src="{{ goal.image.url }}" alt="{{ goal.title }}">
+              </div>
+            {% endif %}
+            <h3>{{ goal.title }}</h3>
+            <p>{{ goal.description }}</p>
+          </div>
+          {% empty %}
+          <p>მიზნები მალე დაემატება.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Services -->
+    <section id="services" class="section reveal">
+      <div class="container">
+        <h2 class="reveal" style="margin-bottom: 32px; text-align: center; color: #ffffff;">სერვისები</h2>
+        <div class="grid">
+          {% for service in services %}
+          <div class="card reveal">
+            {% if service.image %}
+            <img src="{{ service.image.url }}" alt="{{ service.title }}">
+            {% endif %}
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+          </div>
+          {% empty %}
+          <p>სერვისები მალე დაემატება.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section reveal">
+      <div class="container">
+        <h2 class="reveal">კონტაქტი</h2>
+        <div class="container info reveal" style="margin-bottom: 50px; text-align: center;">
+        {% if settings.phone %}<p><strong>ტელეფონი:</strong> {{ settings.phone }}</p>{% endif %}
+        {% if settings.email %}<p><strong>ელ.ფოსტა:</strong> {{ settings.email }}</p>{% endif %}
+        {% if settings.address %}<p><strong>მისამართი:</strong> {{ settings.address }}</p>{% endif %}
+      </div>
+
+      <!-- visual separator -->
+      <div class="contact-separator" role="separator" aria-orientation="horizontal" aria-hidden="true"></div>
+
+
+      <div class="container reveal">
+        <h2>მოგვწერეთ</h2>
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <form method="post" class="contact-form">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="id_name">სახელი</label>
+            {{ form.name }}
+          </div>
+          <div class="form-group">
+            <label for="id_email">ელ.ფოსტა</label>
+            {{ form.email }}
+          </div>
+          <div class="form-group">
+            <label for="id_message">შეტყობინება</label>
+            {{ form.message }}
+          </div>
+          <button type="submit">გაგზავნა</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scroll reveal script -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>
+{% endblock %}

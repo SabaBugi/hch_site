@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}მთის კულტურული მემკვიდრეობის კვლევის ცენტრი{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="{% url 'home' %}">
+          <img src="{% static 'img/logo.png' %}" alt="HCH Logo">
+          <span class="logo-text">მთის კულტურული მემკვიდრეობის კვლევის ცენტრი</span>
+        </a>
+      </div>
+      <nav>
+        <a href="#goals">მიზნები</a>
+        <a href="#services">სერვისები</a>
+        <a href="#contact">კონტაქტი</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+  {% block content %}{% endblock %}
+  </main>
+  <footer class="reveal">
+    <div class="footer-container">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/HCH.GE/" target="_blank" class="facebook">
+          <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+        </a>
+        <a href="https://instagram.com/HCH.GE/" target="_blank" class="instagram">
+          <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+        </a>
+      </div>
+      <p>ყველა უფლება დაცულია &copy; {% now "Y" %} მთის კულტურული მემკვიდრეობის კვლევის ცენტრი</p>
+    </div>
+  </footer>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector("header");
+  const navLinks = document.querySelectorAll("header nav a");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href").substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        const headerHeight = header.offsetHeight;
+        const sectionHeight = targetElement.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+
+        let scrollToPosition;
+        if (sectionHeight < viewportHeight) {
+          // Center short sections
+          const offset = (viewportHeight - sectionHeight) / 2;
+          scrollToPosition = elementTop - offset - headerHeight / 2;
+        } else {
+          // Top-align tall sections
+          scrollToPosition = elementTop - headerHeight - 10; // small extra padding
+        }
+
+        window.scrollTo({
+          top: scrollToPosition,
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+
+  // Optional: reveal elements when they enter viewport
+  const revealElements = document.querySelectorAll(".reveal");
+  const revealOnScroll = () => {
+    const windowHeight = window.innerHeight;
+    revealElements.forEach(el => {
+      const elementTop = el.getBoundingClientRect().top;
+      if (elementTop < windowHeight * 0.85) {
+        el.classList.add("active");
+      }
+    });
+  };
+  window.addEventListener("scroll", revealOnScroll);
+  revealOnScroll(); // trigger on page load
+});
+</script>
+
+</body>
+</html>
