@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-04du$s#ctd6)savq1x(8t8j#96&0xo1qbu)&b^-tw!o2x_qi68
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["hch-site.onrender.com", "www.hch-site.onrender.com", "hch.ge", "www.hch.ge"]
+ALLOWED_HOSTS = ["127.0.0.1","hch-site.onrender.com", "www.hch-site.onrender.com", "hch.ge", "www.hch.ge"]
 
 
 # Application definition
@@ -77,9 +77,10 @@ WSGI_APPLICATION = 'hch_site.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
 
 
