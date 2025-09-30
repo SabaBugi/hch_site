@@ -34,9 +34,13 @@ header {
   box-shadow: var(--shadow);
 }
 .header-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 /* Logo + text */
@@ -45,28 +49,26 @@ header {
   align-items: center;
   gap: 0.5rem;  /* space between image and text */
 }
-
-.logo img {
-  height: 50px;   /* adjust as needed */
+.logo-img {
+  height: 44px;
   width: auto;
+  display: block;
 }
-
-
 .logo a {
   display: flex;
-  align-items: center;   /* vertically center image and text */
-  gap: 0.5rem;           /* space between logo and text */
-  text-decoration: none; /* remove underline */
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
 }
 .logo a:hover .logo-text {
   color: var(--accent);
   text-decoration: none; 
 }
-
 .logo-text {
-  font-size: 1.5rem;
   font-weight: 700;
   color: white;
+  font-size: 1rem;
   text-decoration: none; /* make sure text has no underline */
 }
 
@@ -168,6 +170,8 @@ header nav a:hover::after {
   box-shadow: var(--shadow);
   text-align: center;
   transition: transform .3s, box-shadow .3s;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .card:hover {
@@ -184,6 +188,18 @@ header nav a:hover::after {
 .card:hover img {
   transform: scale(1.05);
   transition: transform 0.3s ease;
+}
+
+/* for bigger screens make cards slightly bigger */
+@media (min-width: 1000px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 720px) and (max-width: 999px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 719px) {
+  .grid { grid-template-columns: 1fr; padding: 0 1rem; }
+  .card { padding: 1.25rem; }
 }
 
 /* Services section background */
@@ -431,4 +447,68 @@ footer .social-icons a.facebook {
 
 footer .social-icons a.instagram {
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+/* nav desktop */
+.main-nav {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.35rem 0.25rem;
+}
+
+/* hamburger (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.hamburger {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: white;
+  position: relative;
+}
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 26px;
+  height: 2px;
+  background: white;
+}
+.hamburger::before { top: -8px; }
+.hamburger::after  { top: 8px; }
+
+/* MOBILE: collapse nav into full-screen dropdown */
+@media (max-width: 860px) {
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    width: min(320px, 90vw);
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    transform-origin: top right;
+    transform: scaleY(0);
+    transition: transform .22s ease;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    z-index: 999;
+  }
+  .main-nav.open { transform: scaleY(1); }
+  .nav-toggle { display: inline-flex; }
+  /* hide desktop spacing */
+  .header-container { padding-left: 1rem; padding-right: 1rem; }
 }

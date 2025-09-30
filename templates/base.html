@@ -3,7 +3,7 @@
 <html lang="ka">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}მთის კულტურული მემკვიდრეობის კვლევის ცენტრი{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
@@ -15,11 +15,16 @@
     <div class="header-container">
       <div class="logo">
         <a href="{% url 'home' %}">
-          <img src="{% static 'img/logo.png' %}" alt="HCH Logo">
+          <img src="{% static 'img/logo.png' %}" alt="HCH Logo" class="logo-img">
           <span class="logo-text">მთის კულტურული მემკვიდრეობის კვლევის ცენტრი</span>
         </a>
       </div>
-      <nav>
+
+      <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+
+      <nav class="main-nav" id="main-nav">
         <a href="#goals">მიზნები</a>
         <a href="#services">სერვისები</a>
         <a href="#contact">კონტაქტი</a>
@@ -91,6 +96,24 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   window.addEventListener("scroll", revealOnScroll);
   revealOnScroll(); // trigger on page load
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('nav-toggle');
+  const nav = document.getElementById('main-nav');
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    nav.classList.toggle('open');
+  });
+
+  // close nav when link clicked (mobile)
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }));
 });
 </script>
 
