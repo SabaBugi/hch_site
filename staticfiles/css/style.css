@@ -1,0 +1,434 @@
+:root {
+  --primary: #13624B;   /* Updated primary */
+  --primary-light: #1c8564;
+  --primary-dark: #0d4635;
+  --light: #f9f9f9;
+  --dark: #222;
+  --secondary: #2a9d8f; /* Updated secondary */
+  --accent: #e76f51;    /* Updated accent */
+  --radius: 12px;
+  --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.7;
+  color: var(--dark);
+  background: var(--light);
+  scroll-behavior: smooth;
+}
+
+/* Header / Navigation */
+header {
+  background: linear-gradient(225deg, var(--primary), var(--secondary));
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo + text */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;  /* space between image and text */
+}
+
+.logo img {
+  height: 50px;   /* adjust as needed */
+  width: auto;
+}
+
+
+.logo a {
+  display: flex;
+  align-items: center;   /* vertically center image and text */
+  gap: 0.5rem;           /* space between logo and text */
+  text-decoration: none; /* remove underline */
+}
+.logo a:hover .logo-text {
+  color: var(--accent);
+  text-decoration: none; 
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none; /* make sure text has no underline */
+}
+
+header nav {
+  display: flex;
+  gap: 2rem;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color .3s;
+}
+
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent);
+  transition: width .3s;
+}
+
+header nav a:hover {
+  color: var(--accent);
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
+
+/* Sections */
+.section {
+  padding: 5rem 1.5rem;
+}
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+.section:nth-child(even) {
+  background: #daf3ea;
+}
+
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #13624B, #2a9d8f);
+  color: white;
+  text-align: center;
+  padding: 8rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional: subtle overlay if needed */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25); /* adjust opacity as needed */
+  z-index: 0;
+}
+
+.hero .container {
+  position: relative; /* ensures text is above overlay */
+  z-index: 1;
+}
+
+.hero h1,
+.hero p {
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: auto;
+  font-size: 1.25rem;
+  animation: fadeInUp 1.2s ease;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+/* Service Cards */
+.card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.card:hover {
+  transform: translateY(-8px); /* lift up */
+  box-shadow: 0 12px 25px rgba(0,0,0,.15);
+}
+
+.card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Services section background */
+#services {
+  background: linear-gradient(135deg, var(--primary-light), var(--light));
+}
+
+
+/* Contact */
+#contact {
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  color: white;
+}
+#contact h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+#contact .info p {
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+form input, form textarea {
+  padding: 0.9rem;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+form input:focus, form textarea:focus {
+  outline: 2px solid var(--primary);
+}
+form button {
+  padding: 0.9rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background .3s, transform .2s;
+}
+form button:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.messages {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+.messages li {
+  background: #d4edda;
+  padding: 0.8rem;
+  border-radius: var(--radius);
+  color: #155724;
+  font-weight: 500;
+}
+
+/* Footer */
+footer {
+  background: var(--primary-dark);
+  color: #bbb;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+}
+footer p {
+  margin: 0;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal:nth-child(1) { transition-delay: 0.1s; }
+.reveal:nth-child(2) { transition-delay: 0.2s; }
+.reveal:nth-child(3) { transition-delay: 0.3s; }
+
+
+/* Contact Form Specific */
+.contact-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button {
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+  background: var(--primary-dark);
+}
+
+/* Separator between contact info and form */
+.contact-separator {
+  width: min(90%, 900px);
+  height: 1px;               /* line thickness */
+  background: rgba(255,255,255,0.95); /* near-white line */
+  margin: 2rem auto;         /* spacing above/below */
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.08) inset;
+}
+
+/* Slight variation for very light backgrounds (fallback) */
+#contact:not([style*="linear-gradient"]) .contact-separator {
+  background: rgba(51,51,51,0.08);
+}
+
+/* Goals Section */
+.goal-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.goal-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.goal-icon img {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 20%;
+  object-fit: cover;
+}
+
+.goal-card:hover .goal-icon {
+  background: var(--secondary);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+.goal-card:hover .goal-icon img {
+  filter: brightness(0) invert(1); /* makes icons white on colored bg */
+}
+
+/* Goals section background */
+#goals {
+  background: linear-gradient(180deg, var(--primary-light), var(--secondary));
+}
+
+/* Hover effect for both service and goal cards */
+.card:hover,
+.goal-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,.15);
+}
+
+/* Footer with social icons */
+footer .social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin: 0 8px; /* ← add horizontal spacing between icons */
+  background: #ccc; /* fallback background */
+  transition: transform 0.3s, filter 0.3s, background 0.3s;
+}
+
+footer .social-icons a img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s;
+}
+
+footer .social-icons a:hover {
+  transform: scale(1.2);
+}
+
+/* Platform colors */
+footer .social-icons a.facebook {
+  background: #1877f2;
+}
+
+footer .social-icons a.instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
